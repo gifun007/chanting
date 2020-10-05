@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>經文選讀</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound" href="sounds/道之宗旨.mp3">道之宗旨</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">禮運大同</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">心經</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">彌勒救苦真經</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">太上清淨經</span>
+    </div>
+    <div data-key="72" class="key">
+      <kbd>H</kbd>
+      <span class="sound">百孝經</span>
+    </div>
+    <div data-key="74" class="key">
+      <kbd>J</kbd>
+      <span class="sound">安東家訓</span>
+    </div>
+    <div data-key="75" class="key">
+      <kbd>K</kbd>
+      <span class="sound">安東家訓二部曲</span>
+    </div>
+    <div data-key="76" class="key">
+      <kbd>L</kbd>
+      <span class="sound">精勤金仙四十八訓</span>
+    </div>
+  </div>
+
+  <audio data-key="65" src="sounds/道之宗旨.mp3"></audio>
+  <audio data-key="83" src="sounds/禮運大同篇.mp3"></audio>
+  <audio data-key="68" src="sounds/心經.mp3"></audio>
+  <audio data-key="70" src="sounds/彌勒救苦真經.mp3"></audio>
+  <audio data-key="71" src="sounds/太上清淨經.mp3"></audio>
+  <audio data-key="72" src="sounds/百孝經.mp3"></audio>
+  <audio data-key="74" src="sounds/安東家訓.mp3"></audio>
+  <audio data-key="75" src="sounds/安東家訓二部曲.mp3"></audio>
+  <audio data-key="76" src="sounds/精勤金仙四十八訓.mp3"></audio>
+
+<div style="margin: 20px;">
+需求：<br>
+1. 滑鼠也能選<br>
+2. 按下下一個選項時 先停播前一個聲音
+</div>
+
+<script>
+  function removeTransition(e) {
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('playing');
+  }
+
+  function playSound(e) {
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+    if (!audio) return;
+
+    key.classList.add('playing');
+    audio.currentTime = 0;
+    audio.play();
+  }
+
+  const keys = Array.from(document.querySelectorAll('.key'));
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  window.addEventListener('keydown', playSound);
+</script>
+
+</body>
+</html>
